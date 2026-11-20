@@ -4,4 +4,23 @@
 __pycache__/
 *.pyc
 .venv/
+# Agent runtime data
+data/
+workspace/
+# Frontend
+node_modules/
+apps/web/dist/
+# Tooling
+.pytest_cache/
+.ruff_cache/
+*.log
+.DS_Store
+# Local MCP config may contain credentials
+/mcp.json
+# Scripted LLM test artifacts
+*.calls.jsonl
+*.state.json
 
+
+# Local design docs (not pushed)
+/docs/

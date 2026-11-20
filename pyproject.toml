@@ -1,20 +1,50 @@
 [project]
 name = "minillm"
 version = "0.1.0"
-description = "Add your description here"
+description = "MiniLLM：基于 OpenAI 兼容接口的 ReAct Coding Agent"
 readme = "README.md"
 authors = [
     { name = "myj", email = "1343724166@qq.com" }
 ]
 requires-python = ">=3.12"
 dependencies = [
+    "fastapi>=0.115.0",
+    "httpx>=0.27.0",
     "openai>=3.11.0",
+    "pydantic>=2.8.0",
+    "pydantic-settings>=2.4.0",
     "python-dotenv>=1.2.3",
+    "pyyaml>=6.0.2",
+    "uvicorn[standard]>=0.32.0",
 ]
 
 [project.scripts]
-minillm = "minillm:main"
+minillm = "minillm.cli:main"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.0",
+    "pytest-asyncio>=0.24.0",
+    "ruff>=0.7.0",
+]
 
 [build-system]
 requires = ["uv_build>=0.12.7,<0.13.0"]
 build-backend = "uv_build"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+testpaths = ["tests"]
+markers = [
+    "live: 需要真实网关（设置 MINILLM_LIVE=1 才运行）",
+    "e2e: 端到端测试",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]

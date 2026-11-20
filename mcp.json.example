@@ -1,0 +1,13 @@
+{
+  "servers": [
+    {
+      "name": "stub",
+      "command": "python3",
+      "args": ["scripts/mcp_stub_server.py"],
+      "env": {
+        "PYTHONUNBUFFERED": "1"
+      },
+      "cwd": "."
+    }
+  ]
+}
