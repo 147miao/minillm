@@ -13,9 +13,10 @@ import json
 import os
 import socket
 import sys
+from collections.abc import AsyncIterator
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, AsyncIterator
+from typing import Any
 
 import httpx
 import pytest
@@ -182,6 +183,9 @@ async def run_server(
             "MINILLM_LLM": "scripted",
             "MINILLM_SCRIPT": str(script),
             "PYTHONUNBUFFERED": "1",
+            # 测试不读取开发者本地的 mcp.json / hooks；需要时由 extra_env 覆盖
+            "MCP_CONFIG": str(root / "no-mcp.json"),
+            "HOOKS_DIR": str(root / "no-hooks"),
         }
     )
     if extra_env:

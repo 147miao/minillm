@@ -58,7 +58,7 @@ Vite 会把 /api 代理到 http://127.0.0.1:8765。
 
 ## 联调关注点
 
-- 事件载荷按 plan.md 6.4 写入；tool.call/result 的 run_call_id 用于把工具卡片挂到 run_code 下。
+- 事件载荷按统一事件协议写入；tool.call/result 的 run_call_id 用于把工具卡片挂到 run_code 下。
 - context.compacted 的 fallback 可能是布尔或字符串；前端对 false 不显示降级标签。
 - GET /api/sessions/{id} 的 meta 字段若缺少 workspace/model，前端自动降级为空串。
 - POST /api/sessions/{id}/messages 返回 202；运行中返回 409 时前端提示并保持运行状态。

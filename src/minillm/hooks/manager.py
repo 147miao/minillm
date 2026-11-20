@@ -18,7 +18,7 @@ from ..config import Settings
 
 
 class HookEvent:
-    """Hook 事件名（与 plan.md / docs/EVENTS.md 对齐）。"""
+    """Hook 事件名（与事件协议文档对齐）。"""
 
     SESSION_START = "session_start"
     USER_MESSAGE = "user_message"

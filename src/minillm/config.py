@@ -1,7 +1,7 @@
 """全局配置：pydantic-settings 从 .env 与环境变量读取。
 
 约定：
-- 所有可调参数集中在 Settings，禁止散落硬编码（CONVENTIONS C01）。
+- 所有可调参数集中在 Settings，禁止散落硬编码（统一配置约定）。
 - 密钥使用 SecretStr，repr / 日志 / /api/config 都不会泄露明文。
 - 小模型地址/密钥留空时自动回退到主模型配置。
 """

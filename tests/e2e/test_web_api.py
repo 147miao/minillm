@@ -6,7 +6,6 @@ import asyncio
 import json
 
 import httpx
-import pytest
 
 SLOW_CODE = "import time" + chr(10) + "time.sleep(8)" + chr(10) + "print('slow')"
 ONE_LINE_CODE = "print('hello-web')"
@@ -145,6 +144,24 @@ async def test_sessions_sse_artifacts_and_config(
             event_types = [event["type"] for event in events.json()["events"]]
             assert "run_code.finished" in event_types
             assert "turn.finished" in event_types
+
+            after_last = await client.get(
+                f"/api/sessions/{session_id}/events?after={view_data['last_seq']}"
+            )
+            assert after_last.status_code == 200
+            assert after_last.json()["events"] == []
+
+            empty_content = await client.post(
+                f"/api/sessions/{session_id}/messages",
+                json={"content": "   "},
+            )
+            assert empty_content.status_code == 400
+
+            missing_session = await client.get("/api/sessions/does_not_exist")
+            assert missing_session.status_code == 404
+
+            bad_id = await client.get("/api/sessions/bad%20id")
+            assert bad_id.status_code == 400
 
             artifacts_dir = (
                 server.data_dir / "sessions" / session_id / "artifacts"
